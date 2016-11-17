@@ -25,7 +25,7 @@ class UserController extends Controller implements ClassResourceInterface
                 'message' => "User created"
             ];
 
-        } catch (\Error $e) {
+        } catch (\Exception $e) {
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
             $data['message'] = $e->getMessage();
         }

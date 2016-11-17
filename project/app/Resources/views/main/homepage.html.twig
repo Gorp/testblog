@@ -1,4 +1,136 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1 class="page-header text-center">Welcome Aquanauts!</h1>
+    <h1 class="page-header text-center">Welcome Budy!</h1>
+
+    <a id="loginLink" href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+    <a id="blogLink" href="#" data-toggle="modal" data-target="#blog-modal">Write Blog</a>
+    <h2>Blogs list</h2>
+    <ul class="list-group" id="blogList">
+    </ul>
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="loginmodal-container">
+                <h1>Login to Your Account</h1>
+                <p class="bg-danger" id="errorLogin"></p>
+                <form id="loginForm">
+                    <input type="text" name="name" id="name" placeholder="Username">
+                    <input type="password" name="password" id="password" placeholder="Password">
+                    <input id="btnLogin" type="button" name="login" class="btn btn-primary " value="Login">
+                    <input id="btnRegister" type="button" name="register" class="btn btn-danger "
+                           value="Register">
+                </form>
+
+                <div class="login-help">
+                    <a href="#">Register</a> - <a href="#">Forgot Password</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="blog-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true"
+         style="display: none;">
+        <div class="modal-dialog">
+            <div class="loginmodal-container">
+                <h1>Post to blog</h1>
+                <p class="bg-danger" id="errorBlog"></p>
+
+                <form id="blogForm">
+                    <div class="form-group">
+                        <label for="title">Blog title</label>
+                        <input type="text" class="form-control" id="title" aria-describedby="emailHelp"
+                               placeholder="Blog title">
+                        <small id="emailHelp" class="form-text text-muted">Set title for blog
+                        </small>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Set some content</label>
+                        <textarea class="form-control" id="content" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascript %}
+    <script>
+        var token = '';
+        $('#btnRegister').click(function () {
+            $.post('{{ url('post_user') }}', {
+                name: $('#name').val(),
+                password: $('#password').val()
+            }).done(function (data) {
+                if (data.token) {
+                    token = data.token;
+                    $('#login-modal').modal('hide');
+                    $('#blogLink').show();
+                    $('#loginLink').hide();
+                }
+            }).fail(function(XMLHttpRequest, textStatus, errorThrown){
+                var res = $.parseJSON(XMLHttpRequest.responseText);
+                $('#errorLogin').html(res.message);
+                $('#errorLogin').show();
+            });
+        });
+        $('#btnLogin').click(function () {
+            $('#errorLogin').hide();
+            $.post('{{ url('post_user_auth') }}', {
+                name: $('#name').val(),
+                password: $('#password').val()
+            }).done(function (data) {
+                if (data.token) {
+                    token = data.token;
+                    $('#login-modal').modal('hide');
+                    $('#blogLink').show();
+                    $('#loginLink').hide();
+                }
+            }).fail(function(XMLHttpRequest, textStatus, errorThrown){
+                var res = $.parseJSON(XMLHttpRequest.responseText);
+                $('#errorLogin').html(res.message);
+                $('#errorLogin').show();
+            });
+        });
+
+
+        $("#blogForm").submit(function(){
+            $('#errorBlog').hide();
+            $.post('{{ url('post_blog') }}?token='+token, {
+                title: $('#title').val(),
+                content: $('#content').val()
+            }).done(function (data) {
+                if (data.id) {
+                    token = data.token;
+                    $('#blog-modal').modal('hide');
+                    $('#blogLink').show();
+                    getBlogs();
+                }
+            }).fail(function(XMLHttpRequest, textStatus, errorThrown){
+                var res = $.parseJSON(XMLHttpRequest.responseText);
+                $('#errorBlog').html(res.message);
+                $('#errorBlog').show();
+            });
+
+            return false;
+        });
+
+        function getBlogs() {
+            $('#blogList').html('');
+            $.getJSON('{{ url('get_blogs') }}', function(data){
+                $(data).each(function(id, val){
+                    html = '<li class="list-group-item">'+val.title+' <span class="badge">'+val.id+'</span></li>';
+                    $('#blogList').append(html);
+                });
+            });
+        }
+
+
+
+        getBlogs();
+
+    </script>
 {% endblock %}

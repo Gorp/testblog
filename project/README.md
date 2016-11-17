@@ -1,4 +1,14 @@
 test
 ====
 
-A Symfony project created on November 13, 2016, 9:44 pm.
+Please after cloning do next steps
+
+composer install
+
+make sf3
+
+sf3 doctrine:schema:create
+
+sf3 doctrine:schema:update --force
+
+sf3 assetic:dump

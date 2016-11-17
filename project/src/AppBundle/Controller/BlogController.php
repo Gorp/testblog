@@ -23,6 +23,7 @@ class BlogController extends Controller implements ClassResourceInterface
 
             foreach ($blogs as $blog) {
                 $data[] = [
+                    'id'      => $blog->getId(),
                     'title'   => $blog->getTitle(),
                     'content' => $blog->getContent(),
                 ];
@@ -66,7 +67,7 @@ class BlogController extends Controller implements ClassResourceInterface
             $user = $this->get('token.user')->getUserByToken($request);
             if ( ! $user) {
                 $status          = Response::HTTP_UNAUTHORIZED;
-                $data['message'] = "Wrong login or Password";
+                $data['message'] = "You are not authorized";
             } else {
                 $blog = $this->get('blog.user')->addBlog($request, $user);
                 $data = [

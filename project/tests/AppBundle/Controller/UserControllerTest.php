@@ -22,7 +22,7 @@ class UserControllerTest extends  WebTestCase
     public function testAddUser()
     {
 
-        $this->client->request('POST', '/users', array('name' => 'goo', 'password' => 'alal'));
+        $this->client->request('GET', '/');
 
         $this->assertEquals(
             200, // or Symfony\Component\HttpFoundation\Response::HTTP_OK
