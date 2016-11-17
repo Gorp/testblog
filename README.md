@@ -3,11 +3,15 @@
 test
 ====
 
-Please after cloning do next steps
+Please after cloning do next steps in console mysqldb
 
-composer install
+make
+
+make run
 
 make sf3
+
+composer install
 
 sf3 doctrine:schema:create
 
