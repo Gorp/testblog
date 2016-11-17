@@ -5,8 +5,8 @@ DOCKER_COMPOSE_CONFIG_FILE=docker-compose.yml
 install: setup build
 
 setup:
-	which docker-compose || curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh > /usr/local/bin/docker-compose; \
-	chmod +x /usr/local/bin/docker-compose
+	which ./docker-compose || curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh > ./docker-compose; \
+	chmod +x ./docker-compose
 
 build:
 	docker-compose -f $(DOCKER_COMPOSE_CONFIG_FILE) build
