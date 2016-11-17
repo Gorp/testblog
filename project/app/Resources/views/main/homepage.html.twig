@@ -102,7 +102,6 @@
 
         $("#blogButton").click(function(){
             $('#errorBlog').hide();
-            $("#blogForm")[0].reset();
             $.post('{{ url('post_blog') }}?token='+token, {
                 title: $('#title').val(),
                 content: $('#content').val()
@@ -111,6 +110,7 @@
                 if (data.id) {
                     $('#blog-modal').modal('hide');
                     $('#blogLink').show();
+                    $("#blogForm")[0].reset();
                     getBlogs();
                 }
             }).fail(function(XMLHttpRequest, textStatus, errorThrown){
