@@ -14,3 +14,7 @@ services:
      token.user:
           class: AppBundle\Service\TokenService
           arguments: ["@doctrine.orm.entity_manager"]
+
+     blog.user:
+          class: AppBundle\Service\BlogService
+          arguments: ["@doctrine.orm.entity_manager"]

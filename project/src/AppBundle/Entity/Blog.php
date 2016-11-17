@@ -3,9 +3,9 @@
 namespace AppBundle\Entity;
 
 /**
- * Token
+ * Blog
  */
-class Token
+class Blog
 {
     /**
      * @var integer
@@ -15,7 +15,12 @@ class Token
     /**
      * @var string
      */
-    private $token;
+    private $title;
+
+    /**
+     * @var string
+     */
+    private $content;
 
     /**
      * @var \AppBundle\Entity\User
@@ -34,27 +39,51 @@ class Token
     }
 
     /**
-     * Set token
+     * Set title
      *
-     * @param string $token
+     * @param string $title
      *
-     * @return Token
+     * @return Blog
      */
-    public function setToken($token)
+    public function setTitle($title)
     {
-        $this->token = $token;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get token
+     * Get title
      *
      * @return string
      */
-    public function getToken()
+    public function getTitle()
     {
-        return $this->token;
+        return $this->title;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Blog
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 
     /**
@@ -62,7 +91,7 @@ class Token
      *
      * @param \AppBundle\Entity\User $user
      *
-     * @return Token
+     * @return Blog
      */
     public function setUser(\AppBundle\Entity\User $user = null)
     {

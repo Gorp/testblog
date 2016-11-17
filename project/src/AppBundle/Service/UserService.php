@@ -35,13 +35,11 @@ class UserService
 
     public function authUser(Request $request)
     {
-        $user =  $this->em->getRepository('AppBundle:User')
+        return  $this->em->getRepository('AppBundle:User')
                     ->findOneBy([
                         'name' => $request->get('name'),
                         'password' => sha1($request->get('password'))
                     ]);
-
-
     }
 
     

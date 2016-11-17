@@ -11,6 +11,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Token;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
 
 class TokenService
 {
@@ -27,7 +28,8 @@ class TokenService
 
         if (!$token) {
             $token = new Token();
-            $token->setToken($this->generateToken());
+            $token->setToken($this->generateToken())
+                  ->setUser($user);
 
 
             $this->em->persist($token);
@@ -36,6 +38,13 @@ class TokenService
         }
 
         return $token;
+    }
+
+    public function getUserByToken(Request $request)
+    {
+        $token = $this->em->getRepository('AppBundle:Token')->findOneBy(['token' => $request->get('token')]);
+
+        return ($token)?$token->getUser():false;
     }
 
     public function isTokenExists(User $user)

@@ -18,9 +18,14 @@ AppBundle\Entity\User:
             type: string
             length: 255
 
-    oneToMany:
+    oneToOne:
         token:
           targetEntity: Token
+          mappedBy: user
+
+    oneToMany:
+        blogs:
+          targetEntity: Blog
           mappedBy: user
 
     lifecycleCallbacks: {  }

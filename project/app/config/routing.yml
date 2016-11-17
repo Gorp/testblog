@@ -9,5 +9,8 @@ homepage:
 
 users:
     type:     rest
-
     resource: AppBundle\Controller\UserController
+
+blog:
+    type:     rest
+    resource: AppBundle\Controller\BlogController

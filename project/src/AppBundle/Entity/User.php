@@ -23,16 +23,21 @@ class User
     private $password;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \AppBundle\Entity\Token
      */
     private $token;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $blogs;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->token = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->blogs = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -94,37 +99,61 @@ class User
     }
 
     /**
-     * Add token
+     * Set token
      *
      * @param \AppBundle\Entity\Token $token
      *
      * @return User
      */
-    public function addToken(\AppBundle\Entity\Token $token)
+    public function setToken(\AppBundle\Entity\Token $token = null)
     {
-        $this->token[] = $token;
+        $this->token = $token;
 
         return $this;
     }
 
     /**
-     * Remove token
-     *
-     * @param \AppBundle\Entity\Token $token
-     */
-    public function removeToken(\AppBundle\Entity\Token $token)
-    {
-        $this->token->removeElement($token);
-    }
-
-    /**
      * Get token
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\Token
      */
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Add blog
+     *
+     * @param \AppBundle\Entity\Blog $blog
+     *
+     * @return User
+     */
+    public function addBlog(\AppBundle\Entity\Blog $blog)
+    {
+        $this->blogs[] = $blog;
+
+        return $this;
+    }
+
+    /**
+     * Remove blog
+     *
+     * @param \AppBundle\Entity\Blog $blog
+     */
+    public function removeBlog(\AppBundle\Entity\Blog $blog)
+    {
+        $this->blogs->removeElement($blog);
+    }
+
+    /**
+     * Get blogs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBlogs()
+    {
+        return $this->blogs;
     }
 }
 

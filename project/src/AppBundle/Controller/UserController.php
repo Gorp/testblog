@@ -25,7 +25,7 @@ class UserController extends Controller implements ClassResourceInterface
                 'message' => "User created"
             ];
 
-        } catch (\Exception $e) {
+        } catch (\Error $e) {
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
             $data['message'] = $e->getMessage();
         }
@@ -47,11 +47,11 @@ class UserController extends Controller implements ClassResourceInterface
             } else {
                 $data = [
                     'id'      => $user->getId(),
-                    'token'   => $user->getTokens()->current(),
-                    'message' => "User created"
+                    'token'   => $user->getToken()->getToken(),
+                    'message' => "logged"
                 ];
             }
-        } catch (\Exception $e) {
+        } catch (\Error $e) {
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
             $data['message'] = $e->getMessage();
         }

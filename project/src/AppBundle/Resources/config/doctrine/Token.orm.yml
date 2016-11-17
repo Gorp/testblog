@@ -13,9 +13,10 @@ AppBundle\Entity\Token:
             type: string
             length: 255
 
-    ManyToOne:
+    oneToOne:
         user:
           targetEntity: User
+          inversedBy: token
           joinColumn:
               name: user_id
               referencedColumnName: id
