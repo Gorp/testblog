@@ -1,0 +1,13 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+homepage:
+    path: /
+    defaults:
+        _controller: AppBundle:Main:homepage
+
+users:
+    type:     rest
+
+    resource: AppBundle\Controller\UserController

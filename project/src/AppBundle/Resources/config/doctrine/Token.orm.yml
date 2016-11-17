@@ -1,0 +1,25 @@
+AppBundle\Entity\Token:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\TokenRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        token:
+            type: string
+            length: 255
+
+    ManyToOne:
+        user:
+          targetEntity: User
+          joinColumn:
+              name: user_id
+              referencedColumnName: id
+              onDelete: CASCADE
+
+
+    lifecycleCallbacks: {  }
